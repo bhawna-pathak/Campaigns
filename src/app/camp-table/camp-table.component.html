@@ -1,0 +1,27 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Campaign</th>
+      <th>View</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td>
+        <span>{{item.campaignsDateToshow | date : 'yyyy-MM-dd'}}</span>
+        <span style="margin-left: 10px;">{{ Math.abs(item.days) }}
+          <span *ngIf="item.days >= 0">days</span>
+          <span *ngIf="item.days < 0">days ago</span>
+        </span>
+      </td>
+      <td>{{item.campaignsInfo['campaignsName']}}</td>
+      <td (click)="openDialog(item)" class="view">View</td>
+      <td>
+        Schedule Again
+      </td>
+    </tr>
+
+  </tbody>
+</table>
