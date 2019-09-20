@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Campaign } from '../campaign';
 import * as moment from 'moment';
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { DialogComponent } from "../dialog/dialog.component";
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 @Component({
@@ -12,7 +13,12 @@ import { DialogComponent } from "../dialog/dialog.component";
 })
 
 export class CampTableComponent implements OnInit {
+  @Input("case") case: string;
+  events: string[] = [];
   Math: any = Math;
+  upcoming = [];
+  live = [];
+  past = [];
   data = [
     new Campaign(
       '9-5-2019',
@@ -24,9 +30,45 @@ export class CampTableComponent implements OnInit {
       0
     ),
     new Campaign(
+      '9-20-2019',
+      {
+        campaignsName: 'Super Jewel Quest',
+        campaignsIcon: 'sfdsfds'
+      },
+      new Date(),
+      0
+    ),
+    new Campaign(
       '9-30-2019',
       {
-        campaignsName: 'Test Whatsapp',
+        campaignsName: 'Super Jewel Quest',
+        campaignsIcon: 'sfdsfds'
+      },
+      new Date(),
+      0
+    ),
+    new Campaign(
+      '9-30-2019',
+      {
+        campaignsName: 'Super Jewel Quest',
+        campaignsIcon: 'sfdsfds'
+      },
+      new Date(),
+      0
+    ),
+    new Campaign(
+      '9-30-2019',
+      {
+        campaignsName: 'Super Jewel Quest',
+        campaignsIcon: 'sfdsfds'
+      },
+      new Date(),
+      0
+    ),
+    new Campaign(
+      '9-30-2019',
+      {
+        campaignsName: 'Super Jewel Quest',
         campaignsIcon: 'sfdsfds'
       },
       new Date(),
@@ -35,7 +77,7 @@ export class CampTableComponent implements OnInit {
     new Campaign(
       '3-10-2019',
       {
-        campaignsName: 'Test Whatsapp',
+        campaignsName: 'Mole Slayer',
         campaignsIcon: 'sfdsfds'
       },
       new Date(),
@@ -49,8 +91,14 @@ export class CampTableComponent implements OnInit {
       let currentDate = moment(new Date());
       let campaignsDateToshow = moment(new Date(element.campaignsDate));
       element.days = currentDate.diff(campaignsDateToshow, 'days');
-      console.log(Math.sign(element.days));
       element.campaignsDateToshow = new Date(element.campaignsDate);
+      if (element.days > 0) {
+        this.upcoming.push(element);
+      } else if (element.days == 0) {
+        this.live.push(element);
+      } else {
+        this.past.push(element);
+      }
     });
   }
 
@@ -62,5 +110,9 @@ export class CampTableComponent implements OnInit {
     dialogConfig.data = item;
 
     this.dialog.open(DialogComponent, dialogConfig);
+  }
+
+  public onDate(event): void {
+    console.log(event);
   }
 }

@@ -25,7 +25,7 @@
 <div class="content" role="main">
   <h2>Manage Campaigns</h2>
 
-  <input type="hidden" #selection value="upcoming">
+  <input type="hidden" #selection value="live">
 
   <div class="card-container">
     <div class="card card-small" (click)="selection.value = 'upcoming'" tabindex="0">
@@ -42,13 +42,11 @@
   </div>
 
   <!-- Terminal -->
-  <div [ngSwitch]="selection.value">
-    <div *ngSwitchCase="'upcoming'">
+  <div class="card-container" [ngSwitch]="selection.value">
+    <!-- <div *ngSwitchCase="'upcoming'"> -->
 
-      <app-camp-table></app-camp-table>
-    </div>
-    <div *ngSwitchCase="'live'">Live</div>
-    <div *ngSwitchCase="'past'">Past</div>
+    <app-camp-table [case]="selection.value"></app-camp-table>
+    <!-- </div> -->
   </div>
 
 </div>
